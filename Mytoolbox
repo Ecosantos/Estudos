@@ -17,7 +17,8 @@ pacotes<-c(
 "tiff",
 "datasets",
 "KernSmooth",
-"spatial")
+"spatial",
+"devtools")
 
 
 install.packages(pacotes)
