@@ -9,7 +9,15 @@ pacotes<-c(
 "MASS",
 "vegan",
 "ape",
-"popbio")
+"popbio",
+"metafor",
+"R2HTML",
+"RColorBrewer",
+"scales",
+"tiff",
+"datasets",
+"KernSmooth",
+"spatial")
 
 
 install.packages(pacotes)
