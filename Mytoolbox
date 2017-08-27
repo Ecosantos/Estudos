@@ -1,0 +1,17 @@
+Its so boring re-install all packages all time update R version.
+
+To it, i create my pearsonal toolbox to install all packages frequently used with one hit.
+
+Estes foram os pacotes que acabei lembrei agora, mas em breve haverá outros também.
+
+pacotes<-c(
+"ggplot2",
+"MASS",
+"vegan",
+"ape",
+"popbio")
+
+
+install.packages(pacotes)
+
+
