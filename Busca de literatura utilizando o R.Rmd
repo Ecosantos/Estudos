@@ -1,0 +1,145 @@
+---
+title: "Busca de literatura utilizando o R"
+author: "Gabriel Santos"
+date: "6 de setembro de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r eval=FALSE}
+install.packages("pubmed.mineR")
+install.packages("RISmed")
+install.packages("qdap")
+```
+
+
+```{r echo=FALSE}
+library(pubmed.mineR)
+library(RISmed)
+library(qdap)
+
+```
+
+
+###			Tips & Tricks
+Antes de começarmos a trabalhar nossa busca sistemática, será legal lembrar de alguns comandos ineteressantes. 
+
+- Para copiar todo o conteúdo para o excel ou txt, basta utilizar a função é só utilizar a função ``writeClipboard()``
+
+
+- Exemplo 1
+
+```{r}
+x <- "hello world"
+writeClipboard(x)
+```
+
+- O caminho inverso pode ser feito por meio da função ``readClipboard()``: 
+
+
+```{r}
+readClipboard()
+```
+
+ - Exemplo 2
+  - Primeiro Copiamos
+```{r}
+x <- as.character(3:14)
+writeClipboard(x)
+```
+   - Depois Colamos
+```{r}
+readClipboard()
+```
+
+
+OK, vamos limpar tudo e começar a trabalhar!
+```{r}
+rm(list=ls())
+```
+
+###			Exemplo 1
+Retirado das funções helps a seguir, além de outros ``helps()`` básicos do pacote
+
+
+- Caso queira conferir de onde tiramos cada um desses exemplos apenas precisa utilizar ``help(myeloma)``; ``help(AbstractText)`` e ``Query(myeloma)``
+- Entre outros helps do pacote (RISmed):``??RISmed``
+
+```{r}
+data(myeloma)
+```
+
+- Retorna a forma de busca
+```{r}
+Query(myeloma)
+```
+```{r}
+help(Query)
+```
+
+- Retorna titulo do artigo
+```{r}
+ArticleTitle(myeloma)
+```
+
+- Retorna o titulo da revista
+
+```{r}
+Title(myeloma)
+```
+
+
+- Extractor for the RefSource of a Medline object
+```{r}
+RefSource(myeloma)
+```
+
+- Retorna o volume da revista
+```{r}
+Volume(myeloma)
+```
+
+- Retorna o abstact de cada artigo
+```{r}
+AbstractText(myeloma)
+```
+
+- Returns the number of Ids from a E-utility query
+```{r}
+(myeloma)
+```
+- A MESMA BUSCA QUE RESULTOU NO DATA "myeloma" pode ser feita da seguinte forma
+
+```{r}
+Query(myeloma)
+ "\"multiple myeloma\"[MeSH Terms] AND 2012/05/08[EDAT] : 2013/05/08[EDAT]"
+
+search_topic<-"\"multiple myeloma\"[MeSH Terms] AND 2012/05/08[EDAT] : 2013/05/08[EDAT]"
+```
+
+```{r}
+search_topic=Query(myeloma)
+```
+
+```{r}
+search_query <- EUtilsSummary(search_topic, retmax=10)
+```
+```{r}
+records<- EUtilsGet(search_query)
+```
+
+```{r}
+ArticleTitle(records)
+```
+
+- comparar
+```{r}
+ArticleTitle(myeloma)
+```
+
