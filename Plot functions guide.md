@@ -1,7 +1,8 @@
 Hi everybody!
 
 I'm studying how some functions behave and how could be useful express theoretical plots using R.
-If you want to contribute show some more possibilityes please do your commmits
+If you want to contribute with more examples please add your commmits 
+
 
 #Example 1
 eq = function(x){x^-11}
