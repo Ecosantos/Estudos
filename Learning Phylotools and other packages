@@ -3,7 +3,8 @@
 #=========================================================
 # Books
 Diniz-Filho, 1999 - Methods filogenéticos comparativos
-
+Paradis, E. (2012). Analysis of Phylogenetics and Evolution with R. Media. New York, NY: Springer New York. https://doi.org/10.1007/978-1-4614-1743-9
+Kembel, et al. (2010). Picante: R tools for integrating phylogenies and ecology. Bioinformatics, 26(11), 1463–1464. https://doi.org/10.1093/bioinformatics/btq166
 
 # Sites
 https://www.r-phylo.org/wiki/HowTo/DataTreeManipulation
@@ -28,17 +29,15 @@ geodata <- read.table("https://raw.githubusercontent.com/Ecosantos/Estudos/maste
 
 
 #Anolis
+#do it - phylogeny
+https://www.r-phylo.org/wiki/HowTo/DataTreeManipulation
 
 
 #Primates
 
-
-
-
-
-#------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 #		            Geospiza analysis - Phylogenetic contrats
-#------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 # Look in the page 19 of Diniz-Filho, 1999
 
 ####  Meeting data attribute with phylogenetic ones
@@ -57,5 +56,20 @@ nodelabels(round(pic(geodata$wingL,geotree2),3),adj=c(0,-.5), frame = "n",col="r
 
 
 
+#-------------------------------------------------------------------------------------------
+#		            Phylogenetic Autocorrelation - Moran’s I  - Carnivora
+#-------------------------------------------------------------------------------------------
+# REFERENCE: look for pag.213 in Paradis (2012)
 
+data(carnivora)
+frm <- SW ~ Order/SuperFamily/Family/Genus
+correl.carn <- correlogram.formula(frm, data = carnivora)
+correl.carn
+
+plot(correl.carn, col = c("white", "black"))
+
+
+#-------------------------------------------------------------------------------------------
+#		            Phylogenetic signal - K   - Primates
+#-------------------------------------------------------------------------------------------
 
