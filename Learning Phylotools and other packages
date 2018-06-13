@@ -21,6 +21,9 @@ library(ape)
 #=========================================================
 #		            DATA
 #=========================================================
+
+setwd("C:/Users/Gabriel Santos/Desktop")
+
 #Choice your the data
 
 #Geospiza phylogeny and traits
