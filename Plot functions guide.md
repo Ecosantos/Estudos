@@ -9,9 +9,23 @@ eq = function(x){x^-11}
 plot(eq(-10:10), type='l')
 
 
+### Study case: Reaction norm graph
+eq2 = function(x){1/(1+exp(-x))} 
+eq2 = function(x){1/(1+exp(-x+rnorm(1)))} 
+x<-seq(-6,6,.01)
+plot(eq(x)~x, type="l",xlab="Environmental condition",ylab="Yhat - Mean trait",axes=F)
+axis(1,labels=FALSE)
+axis(2,labels=FALSE)
+replicate(20,curve(eq2(x),x,type="l",add=T))
+abline(h=.5,col="red",lty=2)
+lines(x = c(-6,6), y = c(0,1),col="blue",lty=2)
+
+
 
 # Example 2
 curve(x^2, from=1, to=10, , xlab="x", ylab="y")
+
+
 
 # Example 3: Surface plots
 An example get directly from "help(plot.surface)"
@@ -37,6 +51,8 @@ fit<- Tps( BD[,1:4], BD$lnya) # fit surface to data
  out.p<-predictSurface(fit, xy=c(2,3))  
 
  plot.surface(out.p) # surface plot  
+
+
 
 
 will continuous....
