@@ -1,0 +1,16 @@
+######
+# create a histogram with y with probability 
+###
+#From: https://stackoverflow.com/questions/17416453/force-r-to-plot-histogram-as-probability-relative-frequency
+
+
+A<-rnorm(10000)
+
+probhist<-function(X){
+x<-na.omit(X)
+h<-hist(na.omit(x), breaks = 100, plot=FALSE)
+h$counts=h$counts/sum(h$counts)
+return(plot(h, xlab= "Diâmetro Altura do solo", ylab="% de palmeiras"))
+}
+
+probhist(A)
