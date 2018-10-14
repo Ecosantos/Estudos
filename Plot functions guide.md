@@ -6,18 +6,27 @@ If you want to contribute with more examples please add your commmits
 
 # Example 1
 eq = function(x){x^-11}
+
 plot(eq(-10:10), type='l')
 
 
 ### Study case: Reaction norm graph
 eq2 = function(x){1/(1+exp(-x))} 
+
 eq2 = function(x){1/(1+exp(-x+rnorm(1)))} 
+
 x<-seq(-6,6,.01)
+
 plot(eq(x)~x, type="l",xlab="Environmental condition",ylab="Yhat - Mean trait",axes=F)
+
 axis(1,labels=FALSE)
+
 axis(2,labels=FALSE)
+
 replicate(20,curve(eq2(x),x,type="l",add=T))
+
 abline(h=.5,col="red",lty=2)
+
 lines(x = c(-6,6), y = c(0,1),col="blue",lty=2)
 
 
