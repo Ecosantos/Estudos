@@ -1,0 +1,51 @@
+#================================================================================
+# This script was made to compare pearson and spearman correlation coefficient
+#         by Gabriel Santos 02/12/2018
+#================================================================================
+
+# To perform it I did a gif which compare a relationthinp between X = X+e, where e~N(0,i) and i range from 0.1 to 10, by 0.1
+
+# Finally, but not implemented yet, I will compare the performancee of Spearman and Pearson correlation in a graph.
+
+#To make the gif, is necessary to use the ImgFlip, the gif maker.
+https://imgflip.com/gif-maker?from=images.
+
+
+X<-0:49
+
+e=spearman.p=spearman.coef=pearson.p=pearson.coef<-NULL
+
+
+#Choose a dir to store all figures
+#some packages could be necessary to.
+
+setwd(choose.dir())
+
+png(file="meus%02d.png")
+for(i in 1:length(seq(0.10,10,.10))){
+e<-rnorm(50,0,i)
+spearman.p<-cor.test(X,X+e,method = "spearman")$p.value
+spearman.coef<-cor.test(X,X+e,method = "spearman")$ estimate 
+pearson.p<-cor.test(X,X+e,method = "pearson")$p.value
+pearson.coef<-cor.test(X,X+e,method = "pearson")$ estimate 
+par(fig=c(0.1,1,0,0.8))
+plot((X+e~X),ylim=c(-500,500),xlim=c(-5,55),ylab=paste("X+e; e~N(0,",seq(0.10,10,.10)[i],")"))
+abline(lm((X+e~X)),col="red")
+text(12,150,
+paste("Coefficient"))
+text(30,150,
+paste("p-value"))
+text(6,140,
+paste("Pearson =",round(pearson.coef,2)))
+text(30,140,
+paste(round(pearson.p,5)))
+text(6,130,
+paste("Spearman's=",round(spearman.coef,2)))
+text(30,130,
+paste(round(spearman.p,5)))
+par(fig=c(0.1,1,0.6,1), new=TRUE)
+hist(e, axes=T,xla="",freq=F,main="residuals (e) frequency", xlim=c(-500,500))
+}
+dev.off()
+dev.off()
+
