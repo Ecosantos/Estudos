@@ -1,0 +1,21 @@
+#========================================================================
+# COMPARAÇÃO ENTRE TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE CASWELL 2001
+#    COM TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE PACITINI et al. 2014
+#========================================================================
+
+source(
+
+#O uso de uma regressão robusta ficou muito melhor pois atribuiu menos peso aos dois outliers 
+#referente às observações 1 e 14
+car::outlierTest(lm(From.matrix~Pacitini2014+I(Pacitini2014^2),data=temp))
+
+relacao1<-MASS::rlm(From.matrix~Pacitini2014+I(Pacitini2014^2),data=temp);summary(relacao1)
+relacao2<-MASS::rlm(From.matrix~Pacitini2014,data=temp);summary(relacao2)
+
+AIC(relacao1,relacao2)
+
+#plot(From.matrix~(Pacitini2014),data=temp,log="x",xlim=c(1,10000),ylim=c(0,40))
+
+plot(From.matrix~Pacitini2014,data=temp,log="x",ylab="Tempo de geração estimado pela Matrix",xlab="Tempo de geração estimado por Pacitini 2014")
+points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao1)[order(fitted(relacao1))], lty=1,col="red", pch=20,type="l")
+points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao2)[order(fitted(relacao2))], lty=2,col="gray50", pch=20,type="l")
