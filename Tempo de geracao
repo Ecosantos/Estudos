@@ -3,7 +3,7 @@
 #    COM TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE PACITINI et al. 2014
 #========================================================================
 
-install.packages("RCurl")
+#install.packages("RCurl")
 
 u<-"https://raw.githubusercontent.com/Ecosantos/Estudos/master/tempo%20de%20geracao%20COMADRE.Rdata"
 
@@ -29,7 +29,15 @@ par(mai=c(1,.1,.5,1.5),mar=c(3,6,3,3))
 barplot(temp$Pacitini2014/365,names.arg=NULL,las=2,cex.names=.5,ylim=c(0,40),horiz=T,,main="Pacetini et al. 2014")
 
 
+par(mar=c(5,13,3,3))
+plot(range(-50,50),c(0,40),type = "n",axes = FALSE,ylab="",xlab="Tempo de geração")
+barplot(height = temp$Pacitini2014/365,add = TRUE,axes = FALSE,horiz=T)
+axis(1,at=seq(0,40,5), seq(0,40,5),ylim=c(0,40),las=2)
+text(25,41,"Caswell 2001")
+barplot(temp$From.matrix * -1 ,add = TRUE,axes = FALSE,names.arg=temp$Especies,horiz=T,las=2,cex.names=.5)
+axis(1,at=seq(-40,0,5), seq(40,0,-5),las=2)
+text(-24,41,"Pacentini 2014")
+abline(v=0,lty=2)
+abline(v=25,lty=2)
+abline(v=-25,lty=2)
 
-plot(c(0,40),range(-50,50),type = "n")
-barplot(height = temp$Pacitini2014/365,add = TRUE,axes = FALSE)
-barplot(height = temp$From.matrix * -1 ,add = TRUE,axes = FALSE,names.arg=c(temp$Especies),las=2)
