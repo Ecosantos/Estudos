@@ -3,7 +3,9 @@
 #    COM TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE PACITINI et al. 2014
 #========================================================================
 
-source(
+install.packages("RCurl")
+
+u<-"https://raw.githubusercontent.com/Ecosantos/Estudos/master/tempo%20de%20geracao%20COMADRE.Rdata"
 
 #O uso de uma regressão robusta ficou muito melhor pois atribuiu menos peso aos dois outliers 
 #referente às observações 1 e 14
@@ -19,3 +21,15 @@ AIC(relacao1,relacao2)
 plot(From.matrix~Pacitini2014,data=temp,log="x",ylab="Tempo de geração estimado pela Matrix",xlab="Tempo de geração estimado por Pacitini 2014")
 points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao1)[order(fitted(relacao1))], lty=1,col="red", pch=20,type="l")
 points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao2)[order(fitted(relacao2))], lty=2,col="gray50", pch=20,type="l")
+
+par(mfrow=c(1,2))
+par(mai=c(1,1.5,.5,.1),mar=c(3,6,3,3))
+barplot(temp$From.matrix,names.arg=temp$Especies,las=2,cex.names=.5,ylim=c(0,40),horiz=T,main="Caswell 2001")
+par(mai=c(1,.1,.5,1.5),mar=c(3,6,3,3))
+barplot(temp$Pacitini2014/365,names.arg=NULL,las=2,cex.names=.5,ylim=c(0,40),horiz=T,,main="Pacetini et al. 2014")
+
+
+
+plot(c(0,40),range(-50,50),type = "n")
+barplot(height = temp$Pacitini2014/365,add = TRUE,axes = FALSE)
+barplot(height = temp$From.matrix * -1 ,add = TRUE,axes = FALSE,names.arg=c(temp$Especies),las=2)
