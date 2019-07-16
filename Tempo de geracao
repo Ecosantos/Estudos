@@ -1,43 +1,47 @@
 #========================================================================
-# COMPARAÇÃO ENTRE TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE CASWELL 2001
-#    COM TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE PACITINI et al. 2014
+#  COMPARAÇÃO ENTRE TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE CASWELL 2001
+#    COM TEMPO DE GERAÇÃO ESTIMADO A PARTIR DE PACIFINI et al. 2013
 #========================================================================
+#Pacifini et at 2013 - https://natureconservation.pensoft.net/article/1343/
 
 #install.packages("RCurl")
 
 u<-"https://raw.githubusercontent.com/Ecosantos/Estudos/master/tempo%20de%20geracao%20COMADRE.Rdata"
 
+
 #O uso de uma regressão robusta ficou muito melhor pois atribuiu menos peso aos dois outliers 
 #referente às observações 1 e 14
-car::outlierTest(lm(From.matrix~Pacitini2014+I(Pacitini2014^2),data=temp))
+car::outlierTest(lm(From.matrix~Pacifini2013+I(Pacifini2013^2),data=temp))
 
-relacao1<-MASS::rlm(From.matrix~Pacitini2014+I(Pacitini2014^2),data=temp);summary(relacao1)
-relacao2<-MASS::rlm(From.matrix~Pacitini2014,data=temp);summary(relacao2)
+relacao1<-MASS::rlm(From.matrix~Pacifini2013+I(Pacitini2013^2),data=temp);summary(relacao1)
+relacao2<-MASS::rlm(From.matrix~Pacifini2013,data=temp);summary(relacao2)
 
 AIC(relacao1,relacao2)
 
-#plot(From.matrix~(Pacitini2014),data=temp,log="x",xlim=c(1,10000),ylim=c(0,40))
+#plot(From.matrix~(Pacifini2013),data=temp,log="x",xlim=c(1,10000),ylim=c(0,40))
 
-plot(From.matrix~Pacitini2014,data=temp,log="x",ylab="Tempo de geração estimado pela Matrix",xlab="Tempo de geração estimado por Pacitini 2014")
-points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao1)[order(fitted(relacao1))], lty=1,col="red", pch=20,type="l")
-points(temp$Pacitini2014[order(temp$Pacitini2014)],fitted(relacao2)[order(fitted(relacao2))], lty=2,col="gray50", pch=20,type="l")
+plot(From.matrix~Pacifini2013,data=temp,log="x",ylab="Tempo de geração estimado pela Matrix",xlab="Tempo de geração estimado por Pafitini 2014")
+points(temp$Pacifini2013[order(temp$Pacifini2014)],fitted(relacao1)[order(fitted(relacao1))], lty=1,col="red", pch=20,type="l")
+points(temp$Pacifini2013[order(temp$Pacifini2014)],fitted(relacao2)[order(fitted(relacao2))], lty=2,col="gray50", pch=20,type="l")
 
-par(mfrow=c(1,2))
-par(mai=c(1,1.5,.5,.1),mar=c(3,6,3,3))
-barplot(temp$From.matrix,names.arg=temp$Especies,las=2,cex.names=.5,ylim=c(0,40),horiz=T,main="Caswell 2001")
-par(mai=c(1,.1,.5,1.5),mar=c(3,6,3,3))
-barplot(temp$Pacitini2014/365,names.arg=NULL,las=2,cex.names=.5,ylim=c(0,40),horiz=T,,main="Pacetini et al. 2014")
-
-
+#-----------------------------------------------------------------------------------------
+#                             GRÁFICO DE BARRAS
+#-----------------------------------------------------------------------------------------
 par(mar=c(5,13,3,3))
 plot(range(-50,50),c(0,40),type = "n",axes = FALSE,ylab="",xlab="Tempo de geração")
-barplot(height = temp$Pacitini2014/365,add = TRUE,axes = FALSE,horiz=T)
+barplot(height = temp$Pacitini2013/365,add = TRUE,axes = FALSE,horiz=T)             #Dividido por 365 dias
 axis(1,at=seq(0,40,5), seq(0,40,5),ylim=c(0,40),las=2)
 text(25,41,"Caswell 2001")
 barplot(temp$From.matrix * -1 ,add = TRUE,axes = FALSE,names.arg=temp$Especies,horiz=T,las=2,cex.names=.5)
 axis(1,at=seq(-40,0,5), seq(40,0,-5),las=2)
-text(-24,41,"Pacentini 2014")
+text(-24,41,"Pacifini 2013")
 abline(v=0,lty=2)
 abline(v=25,lty=2)
 abline(v=-25,lty=2)
 
+
+
+## Referências
+#Caswell, H. 2001. Matrix Population Models
+#Pacifici M, Santini L, Di Marco M, Baisero D, Francucci L, Grottolo Marasini G, Visconti P, Rondinini C (2013) Database on generation length of mammals
+#
