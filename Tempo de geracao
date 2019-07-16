@@ -30,7 +30,7 @@ points(temp$Pacifini2013[order(temp$Pacifini2013)],fitted(relacao2)[order(fitted
 #-----------------------------------------------------------------------------------------
 par(mar=c(5,13,3,3))
 plot(range(-50,50),c(0,40),type = "n",axes = FALSE,ylab="",xlab="Tempo de geração")
-barplot(height = temp$Pacitini2013/365,add = TRUE,axes = FALSE,horiz=T)             #Dividido por 365 dias
+barplot(height = temp$Pacifini2013/365,add = TRUE,axes = FALSE,horiz=T)             #Dividido por 365 dias
 axis(1,at=seq(0,40,5), seq(0,40,5),ylim=c(0,40),las=2)
 text(25,41,"Caswell 2001")
 barplot(temp$From.matrix * -1 ,add = TRUE,axes = FALSE,names.arg=temp$Especies,horiz=T,las=2,cex.names=.5)
